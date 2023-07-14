@@ -14,9 +14,20 @@ class DatabaseService {
   final CollectionReference expertCollection =
       FirebaseFirestore.instance.collection('Experts');
 
-  Future updateUserData(ExpertInfo expertInfo) async {
+//First time registration
+  Future addUserData(ExpertInfo expertInfo) async {
     try {
       return await expertCollection.doc(uid).set(expertInfo.toJson());
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  //Profile updation
+  Future updateUserData(ExpertInfo expertInfo) async {
+    try {
+      return await expertCollection.doc(uid).update(expertInfo.toJson());
     } catch (e) {
       print(e.toString());
       return null;
@@ -33,9 +44,17 @@ class DatabaseService {
       String downloadUrl = await taskSnapshot.ref.getDownloadURL();
       return downloadUrl;
     } catch (error) {
+      throw Exception('Image upload failed');
       // Handle the error appropriately
-      rethrow;
     }
+  }
+
+  Stream<ExpertInfo> getUserDetailsStream() {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .snapshots()
+        .map((snapshot) => ExpertInfo.fromSnap(snapshot));
   }
 
   Future<ExpertInfo> getUserDetails() async {

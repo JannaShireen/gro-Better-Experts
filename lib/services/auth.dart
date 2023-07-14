@@ -88,7 +88,7 @@ class AuthService {
 
   Future updateExpertProfile(ExpertInfo expertInfo) async {
     try {
-      await DatabaseService(uid: expertInfo.id).updateUserData(expertInfo);
+      await DatabaseService(uid: expertInfo.id).addUserData(expertInfo);
     } catch (e) {
       print(e.toString());
       return null;

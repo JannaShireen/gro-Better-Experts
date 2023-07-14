@@ -16,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -34,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Consumer<BottomState>(
       builder: (context, value, _) {
         return Scaffold(
+          appBar: AppBar(),
           drawer: Drawer(
             child: SingleChildScrollView(
               child: Container(

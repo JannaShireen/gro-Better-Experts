@@ -12,7 +12,8 @@ class TextFormFieldWidget extends StatelessWidget {
   final int? maxLength;
   final TextEditingController? controller;
   final int? maxLines;
-  final String initialValue;
+  final String? initialValue;
+  final String? labelText;
 
   const TextFormFieldWidget({
     Key? key,
@@ -20,21 +21,23 @@ class TextFormFieldWidget extends StatelessWidget {
     this.icon,
     this.keyboardType,
     this.obscureText = false,
-    this.initialValue = '',
+    this.initialValue,
     this.validator,
     this.onChanged,
     this.maxLength,
     this.controller,
     this.maxLines = 2,
+    this.labelText,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       style: const TextStyle(color: kTextColor2),
-      // initialValue: '',
+      initialValue: initialValue,
       controller: controller,
       decoration: InputDecoration(
+        labelText: labelText,
         hintText: hintText,
         hintStyle: GoogleFonts.lato(color: Colors.grey),
         enabledBorder: OutlineInputBorder(

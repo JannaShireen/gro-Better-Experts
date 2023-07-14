@@ -1,5 +1,6 @@
 import 'package:expert_app/home/home_screen.dart';
 import 'package:expert_app/provider/bottom_navigation_bar_provider.dart';
+import 'package:expert_app/provider/edit_profile_provider.dart';
 import 'package:expert_app/provider/expert_provider.dart';
 import 'package:expert_app/provider/register_user.dart';
 import 'package:expert_app/screens/widgets/wrapper.dart';
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<RegisterUserState>(
             create: (context) => RegisterUserState()),
         ChangeNotifierProvider(create: (context) => BottomState()),
-        ChangeNotifierProvider(create: (context) => ExpertProvider())
+        ChangeNotifierProvider(create: (context) => ExpertProvider()),
+        ChangeNotifierProvider(create: (context) => EditProfileProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

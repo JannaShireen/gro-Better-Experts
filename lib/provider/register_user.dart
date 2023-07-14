@@ -77,7 +77,7 @@ class RegisterUserState extends ChangeNotifier {
           question3: question3,
           imageUrl: imagePath);
       //   print('Expert Info object created');
-      await DatabaseService(uid: expertInfo.id).updateUserData(expertInfo);
+      await DatabaseService(uid: expertInfo.id).addUserData(expertInfo);
       // await _auth.updateExpertProfile(expertInfo);
       // print('Added to database');
       loading = false;

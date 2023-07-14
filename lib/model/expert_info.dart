@@ -2,27 +2,36 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ExpertInfo {
   final String id;
-  final String name;
-  final String email;
+  String name;
+  String email;
   final String qualification;
   final String category;
-  final String question1;
-  final String question2;
-  final String question3;
-  final String imageUrl;
-  int? sessionCount;
+  double? fee;
+  String question1;
+  String question2;
+  String question3;
+  String imageUrl;
+  String about;
+  int sessionCount;
+  DateTime? fromTime;
+  DateTime? toTime;
 
-  ExpertInfo(
-      {required this.id,
-      required this.name,
-      required this.email,
-      required this.qualification,
-      required this.category,
-      this.question1 = '',
-      this.question2 = '',
-      this.question3 = '',
-      this.imageUrl = '',
-      this.sessionCount = 0});
+  ExpertInfo({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.qualification,
+    required this.category,
+    this.fromTime,
+    this.toTime,
+    this.fee,
+    this.question1 = '',
+    this.question2 = '',
+    this.question3 = '',
+    this.imageUrl = '',
+    this.about = '',
+    this.sessionCount = 0,
+  });
   Map<String, dynamic> toJson() {
     return {
       "ExpertID": id,
@@ -35,6 +44,10 @@ class ExpertInfo {
       "Question-3": question3,
       "SessionCount": sessionCount,
       "imageUrl": imageUrl,
+      "fee": fee,
+      "about": about,
+      "fromTime": fromTime,
+      "toTime": toTime,
     };
   }
 
@@ -51,6 +64,10 @@ class ExpertInfo {
       question2: snapshot['Question-2'],
       question3: snapshot['Question-3'],
       imageUrl: snapshot['imageUrl'],
+      fee: snapshot['fee'],
+      about: snapshot['about'],
+      fromTime: snapshot['fromTime'],
+      toTime: snapshot['toTime'],
     );
   }
 }

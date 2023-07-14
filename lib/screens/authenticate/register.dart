@@ -1,5 +1,4 @@
 import 'package:expert_app/provider/register_user.dart';
-
 import 'package:expert_app/shared/constants/constants.dart';
 import 'package:expert_app/shared/loading/loading.dart';
 import 'package:expert_app/widgets/text_form_field.dart';
@@ -29,7 +28,7 @@ class RegisterUser extends StatelessWidget {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          kHeight30,
+                          kHeight20,
                           const Text(
                             'Already a member? ',
                             style: TextStyle(
@@ -42,6 +41,20 @@ class RegisterUser extends StatelessWidget {
                             },
                             child: const Text('Log In'),
                           ),
+
+                          const SizedBox(height: 8),
+                          state.image != null
+                              ? Image.file(state.image!,
+                                  width: 100, height: 100)
+                              : Image.asset('assets/images/download.jpeg',
+                                  width: 100, height: 100),
+                          ElevatedButton(
+                            onPressed: () async {
+                              await state.selectImage();
+                            },
+                            child: const Text('Select Image'),
+                          ),
+
                           TextFormFieldWidget(
                             hintText: 'Full Name',
                             onChanged: (value) {
@@ -182,22 +195,6 @@ class RegisterUser extends StatelessWidget {
                             },
                           ),
                           kHeight10,
-                          const Text(
-                            'Upload Picture:',
-                            style: kTextStyle,
-                          ),
-                          const SizedBox(height: 8),
-                          state.image != null
-                              ? Image.file(state.image!,
-                                  width: 100, height: 100)
-                              : Image.asset('assets/images/download.jpeg',
-                                  width: 100, height: 100),
-                          ElevatedButton(
-                            onPressed: () async {
-                              await state.selectImage();
-                            },
-                            child: const Text('Select Image'),
-                          ),
 
                           //Register Button
                           SizedBox(
