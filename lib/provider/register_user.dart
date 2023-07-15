@@ -22,6 +22,8 @@ class RegisterUserState extends ChangeNotifier {
   String question3 = '';
   String selectedQualification = '';
   String selectedCategory = '';
+  DateTime fromTime = DateTime.now();
+  DateTime toTime = DateTime.now();
 
   List<String> qualifications = [
     'High School',
@@ -39,6 +41,16 @@ class RegisterUserState extends ChangeNotifier {
     'Therapist',
     'Career Mentor'
   ];
+
+  void setFromTime(DateTime time) {
+    fromTime = time;
+    notifyListeners();
+  }
+
+  void setToTime(DateTime time) {
+    toTime = time;
+    notifyListeners();
+  }
 
   DateTime date = DateTime.now();
   // Gender gender = Gender.Male;
@@ -66,16 +78,20 @@ class RegisterUserState extends ChangeNotifier {
       String imagePath = await DatabaseService(uid: result.uid)
           .updateImageToStorage(result.uid, image!);
       //  print('Image path stored');
+
       ExpertInfo expertInfo = ExpertInfo(
-          id: result.uid,
-          name: name,
-          email: email,
-          qualification: selectedQualification,
-          category: selectedCategory,
-          question1: question1,
-          question2: question2,
-          question3: question3,
-          imageUrl: imagePath);
+        id: result.uid,
+        name: name,
+        email: email,
+        qualification: selectedQualification,
+        category: selectedCategory,
+        question1: question1,
+        question2: question2,
+        question3: question3,
+        imageUrl: imagePath,
+        fromTime: fromTime,
+        toTime: toTime,
+      );
       //   print('Expert Info object created');
       await DatabaseService(uid: expertInfo.id).addUserData(expertInfo);
       // await _auth.updateExpertProfile(expertInfo);

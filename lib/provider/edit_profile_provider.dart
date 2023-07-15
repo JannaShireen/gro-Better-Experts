@@ -12,8 +12,9 @@ class EditProfileProvider extends ChangeNotifier {
   String error = '';
   bool loading = false;
   String name = '';
-  String? fromTime;
-  String? toTime;
+
+  DateTime fromTime = DateTime.now();
+  DateTime toTime = DateTime.now();
 
   final formKey = GlobalKey<FormState>();
 
@@ -27,12 +28,12 @@ class EditProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setFromTime(String time) {
+  void setFromTime(DateTime time) {
     fromTime = time;
     notifyListeners();
   }
 
-  void setToTime(String time) {
+  void setToTime(DateTime time) {
     toTime = time;
     notifyListeners();
   }
@@ -57,9 +58,8 @@ class EditProfileProvider extends ChangeNotifier {
           .updateImageToStorage(expertInfo.id, _photo!);
       expertInfo.imageUrl = imageUrl;
     }
-
-    // expertInfo.fromTime = fromTime;
-    // expertInfo.toTime = toTime;
+    expertInfo.fromTime = fromTime;
+    expertInfo.toTime = toTime;
 
     await DatabaseService(uid: expertInfo.id).updateUserData(expertInfo);
 

@@ -3,6 +3,7 @@ import 'package:expert_app/shared/constants/constants.dart';
 import 'package:expert_app/shared/loading/loading.dart';
 import 'package:expert_app/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class RegisterUser extends StatelessWidget {
@@ -93,6 +94,52 @@ class RegisterUser extends StatelessWidget {
                             },
                           ),
                           kHeight20,
+
+                          //from time
+                          GestureDetector(
+                            onTap: () async {
+                              final pickedTime = await showTimePicker(
+                                context: context,
+                                initialTime:
+                                    TimeOfDay.fromDateTime(state.fromTime),
+                              );
+                              if (pickedTime != null) {
+                                final pickedDateTime = DateTime(
+                                  state.fromTime.year,
+                                  state.fromTime.month,
+                                  state.fromTime.day,
+                                  pickedTime.hour,
+                                  pickedTime.minute,
+                                );
+                                state.setFromTime(pickedDateTime);
+                              }
+                            },
+                            child: Text(
+                              'From Time: ${DateFormat.Hm().format(state.fromTime)}',
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              final pickedTime = await showTimePicker(
+                                context: context,
+                                initialTime:
+                                    TimeOfDay.fromDateTime(state.toTime),
+                              );
+                              if (pickedTime != null) {
+                                final pickedDateTime = DateTime(
+                                  state.toTime.year,
+                                  state.toTime.month,
+                                  state.toTime.day,
+                                  pickedTime.hour,
+                                  pickedTime.minute,
+                                );
+                                state.setToTime(pickedDateTime);
+                              }
+                            },
+                            child: Text(
+                              'To Time: ${DateFormat.Hm().format(state.toTime)}',
+                            ),
+                          ),
 
                           //Educational Qualification
                           Container(

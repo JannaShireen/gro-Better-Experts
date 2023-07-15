@@ -49,16 +49,6 @@ class _SignInState extends State<SignIn> {
                       children: [
                         const SizedBox(height: 30),
 
-                        // logo
-                        // Image.asset(
-                        //   'assets/images/expert.jpeg',
-                        //   width: MediaQuery.of(context).size.width * 0.12,
-                        //   height: MediaQuery.of(context).size.height * 0.12,
-                        // ),
-                        // const Icon(
-                        //   Icons.view_comfortable,
-                        //   size: 100,
-                        // ),
                         kHeight30,
 
                         // welcome back, you've been missed!

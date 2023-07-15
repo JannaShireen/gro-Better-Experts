@@ -13,8 +13,8 @@ class ExpertInfo {
   String imageUrl;
   String about;
   int sessionCount;
-  DateTime? fromTime;
-  DateTime? toTime;
+  DateTime fromTime;
+  DateTime toTime;
 
   ExpertInfo({
     required this.id,
@@ -22,9 +22,9 @@ class ExpertInfo {
     required this.email,
     required this.qualification,
     required this.category,
-    this.fromTime,
-    this.toTime,
     this.fee,
+    required this.fromTime,
+    required this.toTime,
     this.question1 = '',
     this.question2 = '',
     this.question3 = '',
@@ -48,6 +48,8 @@ class ExpertInfo {
       "about": about,
       "fromTime": fromTime,
       "toTime": toTime,
+      // "fromTime": DateFormat('yyyy-MM-dd HH:mm:ss').format(fromTime),
+      // "toTime": DateFormat('yyyy-MM-dd HH:mm:ss').format(toTime),
     };
   }
 
@@ -66,8 +68,8 @@ class ExpertInfo {
       imageUrl: snapshot['imageUrl'],
       fee: snapshot['fee'],
       about: snapshot['about'],
-      fromTime: snapshot['fromTime'],
-      toTime: snapshot['toTime'],
+      fromTime: (snapshot['fromTime'] as Timestamp).toDate(),
+      toTime: (snapshot['toTime'] as Timestamp).toDate(),
     );
   }
 }
