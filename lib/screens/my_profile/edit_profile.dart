@@ -22,7 +22,7 @@ class EditProfile extends StatelessWidget {
               appBar: AppBar(
                 title: const Text('Edit Profile'),
                 automaticallyImplyLeading: true,
-                backgroundColor: kDefaultIconDarkColor,
+                backgroundColor: kBackgroundColor,
               ),
               body: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
                   stream: FirebaseFirestore.instance

@@ -25,9 +25,9 @@ class _SignInState extends State<SignIn> {
     return loading
         ? const Loading()
         : Scaffold(
-            //  backgroundColor: Colors.brown[100],
+            backgroundColor: const Color.fromARGB(255, 20, 35, 28),
             appBar: AppBar(
-              backgroundColor: kPrimaryColor,
+              backgroundColor: const Color.fromARGB(255, 20, 35, 28),
               elevation: 0.0,
               centerTitle: true,
               title: Text(
@@ -38,7 +38,6 @@ class _SignInState extends State<SignIn> {
                     .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
               ),
             ),
-
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Center(
@@ -47,18 +46,16 @@ class _SignInState extends State<SignIn> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(height: 30),
+                        kHeight30,
 
                         kHeight30,
 
                         // welcome back, you've been missed!
-                        const Text(
-                          'Welcome! Sign In to provide your valuable service',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w300,
-                            color: kTextColor2,
-                            fontSize: 16,
-                          ),
+                        Text('Welcome! ', style: commonTextStyle),
+                        kHeight10,
+                        Text(
+                          'Sign In to provide your valuable service',
+                          style: commonTextStyle,
                         ),
 
                         kHeight20,
@@ -103,13 +100,13 @@ class _SignInState extends State<SignIn> {
                                     const SizedBox(height: 10),
 
                                     // forgot password?
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
+                                    const Padding(
+                                      padding: EdgeInsets.symmetric(
                                           horizontal: 25.0),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
-                                        children: const [
+                                        children: [
                                           Text(
                                             'Forgot Password?',
                                             style:

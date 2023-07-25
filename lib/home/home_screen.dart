@@ -1,107 +1,64 @@
-import 'package:expert_app/provider/bottom_navigation_bar_provider.dart';
-import 'package:expert_app/provider/expert_provider.dart';
-import 'package:expert_app/services/auth.dart';
+import 'package:expert_app/screens/my_home/dashboard.dart';
+import 'package:expert_app/services/database/database.dart';
 import 'package:expert_app/shared/constants/constants.dart';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'widgets/mydrawerlist.dart';
 import 'widgets/myheader_drawer.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    addData();
-  }
-
-  addData() async {
-    ExpertProvider expertProvider = Provider.of(context, listen: false);
-    await expertProvider.refreshUser();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final AuthService auth = AuthService();
+    return FutureBuilder(
+        future: DatabaseService(uid: currentuserId).getUserDetails(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return const Center(
+              child: Text('Error fetching user details'),
+            );
+          } else {
+            final expertInfo = snapshot.data;
 
-    return Consumer<BottomState>(
-      builder: (context, value, _) {
-        return Scaffold(
-          appBar: AppBar(),
-          drawer: Drawer(
-            child: SingleChildScrollView(
-              child: Container(
-                child: Column(children: const [
-                  MyHeaderDrawer(),
-                  MyDrawerList(),
-                ]),
+            return Scaffold(
+              backgroundColor: kBackgroundColor,
+              appBar: AppBar(
+                backgroundColor: kBackgroundColor,
+                elevation: 0,
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(33.0),
+                      child: Image.network(
+                        expertInfo!.imageUrl,
+                        height: 37.0,
+                        width: 37.0,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ),
-          body: Center(
-            child: value.widgetOptions.elementAt(value.selectedIndex),
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            enableFeedback: true,
-            backgroundColor: kDefaultIconLightColor,
-            selectedItemColor: kDefaultIconDarkColor,
-            type: BottomNavigationBarType.fixed,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                  color: kPrimaryColor,
+              drawer: Drawer(
+                child: SingleChildScrollView(
+                  child: Container(
+                    child: Column(children: [
+                      MyHeaderDrawer(expertInfo: expertInfo),
+                      const MyDrawerList(),
+                    ]),
+                  ),
                 ),
-                label: 'Dashboard',
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person, color: kPrimaryColor),
-                label: 'Clients',
-              ),
-            ],
-            currentIndex: value.selectedIndex,
-            onTap: (index) {
-              value.onItemTapped(index);
-            },
-          ),
-        );
-      },
-    );
-    // return Scaffold(
-    //   body: SafeArea(
-    //     child: Center(
-    //       child: Column(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         children: [
-    //           const Text('doctors home page'),
-    //           OutlinedButton.icon(
-    //             style: OutlinedButton.styleFrom(
-    //               textStyle: const TextStyle(color: Colors.green),
-    //             ),
-    //             onPressed: () async {
-    //               await auth.Logout();
-    //             },
-    //             icon: const Icon(
-    //               Icons.power_settings_new,
-    //               color: Colors.white,
-    //             ),
-    //             label: const Text(
-    //               'Log Out',
-    //               style: TextStyle(color: Colors.white),
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
+              body: DashBoard(expertInfo: expertInfo),
+            );
+          }
+        });
   }
 }

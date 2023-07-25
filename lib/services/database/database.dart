@@ -65,4 +65,15 @@ class DatabaseService {
         .get();
     return ExpertInfo.fromSnap(snap);
   }
+
+  Stream<List<Map<String, dynamic>>> getBookingsStream() {
+    // Here, we are getting the stream of all documents in the 'bookings' subcollection of the current user's 'Expert' document
+    return FirebaseFirestore.instance
+        .collection('Experts')
+        .doc(uid)
+        .collection('bookings')
+        .snapshots()
+        .map((querySnapshot) =>
+            querySnapshot.docs.map((doc) => doc.data()).toList());
+  }
 }
