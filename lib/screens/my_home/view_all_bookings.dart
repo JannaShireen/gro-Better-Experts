@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:expert_app/screens/user_profile/user_profile.dart';
 import 'package:expert_app/shared/constants/constants.dart';
 import 'package:expert_app/shared/loading/loading.dart';
 import 'package:flutter/material.dart';
@@ -46,15 +47,15 @@ class ViewAllBookings extends StatelessWidget {
                     final booking = bookings[index].data();
                     return GestureDetector(
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => UserProfileScreen(
-                        //       userId: booking[
-                        //           'user_id'], // Replace 'user_id' with the actual field name in your booking document that stores the user's ID
-                        //     ),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UserProfileScreen(
+                              userId: booking[
+                                  'user_id'], // Replace 'user_id' with the actual field name in your booking document that stores the user's ID
+                            ),
+                          ),
+                        );
                       },
                       child: Container(
                         padding: const EdgeInsets.all(16),

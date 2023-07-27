@@ -6,7 +6,7 @@ class ExpertInfo {
   String email;
   final String qualification;
   final String category;
-  double? fee;
+  int? fee;
   String question1;
   String question2;
   String question3;

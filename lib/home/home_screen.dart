@@ -21,8 +21,11 @@ class HomeScreen extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
-            return const Center(
-              child: Text('Error fetching user details'),
+            return Scaffold(
+              body: Center(
+                child: Text(
+                    'Error fetching user details ${snapshot.error.toString()}'),
+              ),
             );
           } else {
             final expertInfo = snapshot.data;

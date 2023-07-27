@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expert_app/model/expert_info.dart';
 import 'package:expert_app/screens/my_home/view_all_bookings.dart';
+import 'package:expert_app/screens/user_profile/user_profile.dart';
 import 'package:expert_app/shared/constants/constants.dart';
 import 'package:expert_app/shared/loading/loading.dart';
 
@@ -89,60 +90,69 @@ class DashBoard extends StatelessWidget {
                     itemCount: bookings.length,
                     itemBuilder: (context, index) {
                       final booking = bookings[index].data();
-                      return Container(
-                        padding: const EdgeInsets.all(16),
-                        width: double.infinity,
-                        height: 130,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(22),
-                          color: const Color.fromARGB(255, 244, 240, 203),
-                        ),
-                        child: ListTile(
-                          leading: Container(
-                            width: 30,
-                            height: 30,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 13, 13, 13),
-                              borderRadius: BorderRadius.circular(15),
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => UserProfileScreen(
+                              userId: booking['user_id'],
                             ),
-                            child: Text(
-                              '${index + 1}', // Display the index starting from 1
-                              style: const TextStyle(color: Colors.white),
+                          ));
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          width: double.infinity,
+                          height: 130,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(22),
+                            color: const Color.fromARGB(255, 244, 240, 203),
+                          ),
+                          child: ListTile(
+                            leading: Container(
+                              width: 30,
+                              height: 30,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 13, 13, 13),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Text(
+                                '${index + 1}', // Display the index starting from 1
+                                style: const TextStyle(color: Colors.white),
+                              ),
                             ),
-                          ),
-                          title: Text(
-                            booking['user_name'] ??
-                                '', // Replace 'name' with the actual field name in your booking document
-                            style: const TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Time: ${booking['time'] ?? ''}', // Replace 'time' with the actual field name in your booking document
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              TextButton.icon(
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(kPrimaryColor),
+                            title: Text(
+                              booking['user_name'] ??
+                                  '', // Replace 'name' with the actual field name in your booking document
+                              style: const TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Time: ${booking['time'] ?? ''}', // Replace 'time' with the actual field name in your booking document
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                onPressed: () {
-                                  // Add onPressed functionality here
-                                },
-                                label: const Text(
-                                  'Connect',
-                                  style: TextStyle(color: Colors.white),
+                                TextButton.icon(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        kPrimaryColor),
+                                  ),
+                                  onPressed: () {
+                                    // Add onPressed functionality here
+                                  },
+                                  label: const Text(
+                                    'Connect',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  icon: const Icon(
+                                    Icons.video_call,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                                icon: const Icon(
-                                  Icons.video_call,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       );

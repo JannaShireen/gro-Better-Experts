@@ -158,7 +158,7 @@ class EditProfile extends StatelessWidget {
                                         style:
                                             const TextStyle(color: kTextColor2),
                                         onChanged: (value) {
-                                          expertInfo.fee = double.parse(value);
+                                          expertInfo.fee = int.parse(value);
                                         },
                                         keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
