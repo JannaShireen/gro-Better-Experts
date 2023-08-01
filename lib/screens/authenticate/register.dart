@@ -19,17 +19,18 @@ class RegisterUser extends StatelessWidget {
           : Scaffold(
               appBar: AppBar(
                 title: const Text('Sign up on Gro Better'),
-                backgroundColor: kPrimaryColor,
+                backgroundColor: const Color.fromARGB(255, 20, 35, 28),
               ),
               body: Container(
-                margin: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(gradient: gradientColor),
+                padding: const EdgeInsets.all(10),
                 child: Form(
                   key: state.formKey,
                   child: SingleChildScrollView(
-                    child: Column(
+                    child: Column(children: <Widget>[
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          kHeight20,
+                        children: [
                           const Text(
                             'Already a member? ',
                             style: TextStyle(
@@ -42,60 +43,111 @@ class RegisterUser extends StatelessWidget {
                             },
                             child: const Text('Log In'),
                           ),
-
-                          const SizedBox(height: 8),
+                        ],
+                      ),
+                      const Text(
+                        'Please fill up the form to complete registration.',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      kHeight30,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
                           state.image != null
-                              ? Image.file(state.image!,
-                                  width: 100, height: 100)
-                              : Image.asset('assets/images/download.jpeg',
-                                  width: 100, height: 100),
+                              ? Container(
+                                  padding: const EdgeInsets.all(10),
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.3,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: FileImage(state.image!),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(20),
+                                      bottomRight: Radius.circular(20),
+                                    ),
+                                  ),
+                                )
+                              : Container(
+                                  padding: const EdgeInsets.all(10),
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.3,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/empty_dr_pic.webp'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(20),
+                                      bottomRight: Radius.circular(20),
+                                    ),
+                                  ),
+                                ),
+                          kWidth10,
                           ElevatedButton(
                             onPressed: () async {
                               await state.selectImage();
                             },
-                            child: const Text('Select Image'),
+                            child: const Text('Upload Image'),
                           ),
+                        ],
+                      ),
+                      kHeight30,
 
-                          TextFormFieldWidget(
-                            hintText: 'Full Name',
-                            onChanged: (value) {
-                              state.name = value;
-                            },
-                          ),
-                          kHeight20,
-                          TextFormFieldWidget(
-                            hintText: 'Email',
-                            validator: (val) =>
-                                val!.isEmpty ? 'Enter an email' : null,
-                            onChanged: (val) {
-                              state.email = val;
-                            },
-                          ),
-                          kHeight20,
-                          TextFormFieldWidget(
-                            hintText: 'Password',
-                            validator: (value) => value!.length < 6
-                                ? 'Password must be at least 6 characters long'
-                                : null,
-                            obscureText: true,
-                            onChanged: (value) {
-                              state.password = value;
-                            },
-                          ),
-                          kHeight20,
-                          TextFormFieldWidget(
-                            hintText: 'Confirm Password',
-                            validator: (value) => value != state.password
-                                ? 'Password do not match'
-                                : null,
-                            obscureText: true,
-                            onChanged: (value) {
-                              state.confirmPassword = value;
-                            },
-                          ),
-                          kHeight20,
-
-                          //from time
+                      TextFormFieldWidget(
+                        hintText: 'Full Name',
+                        onChanged: (value) {
+                          state.name = value;
+                        },
+                      ),
+                      kHeight20,
+                      TextFormFieldWidget(
+                        hintText: 'Email',
+                        validator: (val) =>
+                            val!.isEmpty ? 'Enter an email' : null,
+                        onChanged: (val) {
+                          state.email = val;
+                        },
+                      ),
+                      kHeight20,
+                      TextFormFieldWidget(
+                        hintText: 'Password',
+                        validator: (value) => value!.length < 6
+                            ? 'Password must be at least 6 characters long'
+                            : null,
+                        obscureText: true,
+                        onChanged: (value) {
+                          state.password = value;
+                        },
+                      ),
+                      kHeight20,
+                      TextFormFieldWidget(
+                        hintText: 'Confirm Password',
+                        validator: (value) => value != state.password
+                            ? 'Password do not match'
+                            : null,
+                        obscureText: true,
+                        onChanged: (value) {
+                          state.confirmPassword = value;
+                        },
+                      ),
+                      kHeight20,
+                      Text(
+                        'Choose your consultation time',
+                        style: headingTextStyle,
+                      ),
+                      kHeight20,
+                      //from time
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
                           GestureDetector(
                             onTap: () async {
                               final pickedTime = await showTimePicker(
@@ -115,8 +167,8 @@ class RegisterUser extends StatelessWidget {
                               }
                             },
                             child: Text(
-                              'From Time: ${DateFormat.Hm().format(state.fromTime)}',
-                            ),
+                                'From : ${DateFormat.Hm().format(state.fromTime)}',
+                                style: kTextStyle),
                           ),
                           GestureDetector(
                             onTap: () async {
@@ -137,144 +189,145 @@ class RegisterUser extends StatelessWidget {
                               }
                             },
                             child: Text(
-                              'To Time: ${DateFormat.Hm().format(state.toTime)}',
-                            ),
+                                'To : ${DateFormat.Hm().format(state.toTime)}',
+                                style: kTextStyle),
                           ),
+                        ],
+                      ),
+                      kHeight30,
 
-                          //Educational Qualification
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.068,
-                            padding: const EdgeInsets.only(left: 14),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border:
-                                    Border.all(width: 1, color: kTextColor2)),
-                            child: DropdownButtonFormField<String>(
-                              borderRadius: BorderRadius.circular(25),
-                              style: const TextStyle(color: kTextColor2),
-                              dropdownColor: kPrimaryColor,
-                              decoration: const InputDecoration(
-                                hintStyle: TextStyle(color: Colors.grey),
-                                hintText: 'Educational Qualification',
-                              ),
-                              value: state.selectedQualification.isNotEmpty
-                                  ? state.selectedQualification
-                                  : null,
-                              items: state.qualifications
-                                  .map((String qualification) {
-                                return DropdownMenuItem<String>(
-                                  value: qualification,
-                                  child: Text(qualification),
-                                );
-                              }).toList(),
-                              onChanged: (String? newValue) {
-                                state.selectedQualification = newValue!;
-                              },
-                              validator: (value) {
-                                if (value == null) {
-                                  return 'Please select a qualification';
-                                }
-                                return null;
-                              },
-                            ),
+                      //Educational Qualification
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.068,
+                        padding: const EdgeInsets.only(left: 14),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(width: 1, color: kTextColor2)),
+                        child: DropdownButtonFormField<String>(
+                          borderRadius: BorderRadius.circular(25),
+                          style: const TextStyle(color: kTextColor2),
+                          dropdownColor: Colors.grey,
+                          decoration: const InputDecoration(
+                            hintStyle: TextStyle(color: Colors.grey),
+                            hintText: 'Educational Qualification',
                           ),
-                          kHeight20,
-                          //Category Selection
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.068,
-                            padding: const EdgeInsets.only(left: 14),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border:
-                                    Border.all(width: 1, color: kTextColor2)),
-                            child: DropdownButtonFormField<String>(
-                              borderRadius: BorderRadius.circular(25),
-                              style: const TextStyle(color: kTextColor2),
-                              dropdownColor: kPrimaryColor,
-                              decoration: const InputDecoration(
-                                hintStyle: TextStyle(color: Colors.grey),
-                                hintText: 'Category',
-                              ),
-                              value: state.selectedCategory.isNotEmpty
-                                  ? state.selectedCategory
-                                  : null,
-                              items: state.categories.map((String category) {
-                                return DropdownMenuItem<String>(
-                                  value: category,
-                                  child: Text(category),
-                                );
-                              }).toList(),
-                              onChanged: (String? newValue) {
-                                state.selectedCategory = newValue!;
-                              },
-                              validator: (value) {
-                                if (value == null) {
-                                  return 'Please select a category';
-                                }
-                                return null;
-                              },
-                            ),
+                          value: state.selectedQualification.isNotEmpty
+                              ? state.selectedQualification
+                              : null,
+                          items:
+                              state.qualifications.map((String qualification) {
+                            return DropdownMenuItem<String>(
+                              value: qualification,
+                              child: Text(qualification),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            state.selectedQualification = newValue!;
+                          },
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please select a qualification';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      kHeight20,
+                      //Category Selection
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.068,
+                        padding: const EdgeInsets.only(left: 14),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(width: 1, color: kTextColor2)),
+                        child: DropdownButtonFormField<String>(
+                          borderRadius: BorderRadius.circular(25),
+                          style: const TextStyle(color: kTextColor2),
+                          dropdownColor: Colors.grey,
+                          decoration: const InputDecoration(
+                            hintStyle: TextStyle(color: Colors.grey),
+                            hintText: 'Category',
                           ),
-                          kHeight20,
-                          const Text(
-                            'What people can ask you? ',
-                            style: kTextStyle,
-                          ),
-                          kHeight10,
-                          TextFormFieldWidget(
-                            hintText: 'Question 1',
-                            onChanged: (value) {
-                              state.question1 = value;
-                            },
-                          ),
-                          kHeight10,
-                          TextFormFieldWidget(
-                            hintText: 'Question 2',
-                            onChanged: (value) {
-                              state.question2 = value;
-                            },
-                          ),
-                          kHeight10,
-                          TextFormFieldWidget(
-                            hintText: 'Question 3',
-                            onChanged: (value) {
-                              state.question3 = value;
-                            },
-                          ),
-                          kHeight10,
+                          value: state.selectedCategory.isNotEmpty
+                              ? state.selectedCategory
+                              : null,
+                          items: state.categories.map((String category) {
+                            return DropdownMenuItem<String>(
+                              value: category,
+                              child: Text(category),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            state.selectedCategory = newValue!;
+                          },
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please select a category';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      kHeight20,
+                      const Text(
+                        'What people can ask you? ',
+                        style: kTextStyle,
+                      ),
+                      kHeight10,
+                      TextFormFieldWidget(
+                        hintText: 'Question 1',
+                        onChanged: (value) {
+                          state.question1 = value;
+                        },
+                      ),
+                      kHeight10,
+                      TextFormFieldWidget(
+                        hintText: 'Question 2',
+                        onChanged: (value) {
+                          state.question2 = value;
+                        },
+                      ),
+                      kHeight10,
+                      TextFormFieldWidget(
+                        hintText: 'Question 3',
+                        onChanged: (value) {
+                          state.question3 = value;
+                        },
+                      ),
+                      kHeight10,
 
-                          //Register Button
-                          SizedBox(
-                            width: 150,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: kPrimaryColor,
-                              ),
-                              onPressed: () async {
-                                if (state.formKey.currentState!.validate()) {
-                                  state.loading = true;
-                                  dynamic result = await state.registerUser();
-
-                                  if (result == null) {
-                                    state.error = 'Invalid input';
-                                    state.loading = false;
-                                  }
-                                }
-                              },
-                              child: const Text('Register'),
-                            ),
+                      //Register Button
+                      SizedBox(
+                        width: 150,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: kPrimaryColor,
                           ),
-                          kHeight20,
-                          Text(
-                            state.error,
-                            style: const TextStyle(
-                              color: Colors.red,
-                              fontSize: 14,
-                            ),
-                          ),
+                          onPressed: () async {
+                            if (state.formKey.currentState!.validate()) {
+                              state.loading = true;
+                              dynamic result = await state.registerUser();
 
-                          // Other widget content...
-                        ]),
+                              if (result == null) {
+                                state.error = 'Invalid input';
+                                state.loading = false;
+                              }
+                            }
+                          },
+                          child: const Text('Register'),
+                        ),
+                      ),
+                      kHeight20,
+                      Text(
+                        state.error,
+                        style: const TextStyle(
+                          color: Colors.red,
+                          fontSize: 14,
+                        ),
+                      ),
+
+                      // Other widget content...
+                    ]),
                   ),
                 ),
               ),

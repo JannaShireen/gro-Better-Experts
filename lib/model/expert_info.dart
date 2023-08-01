@@ -6,7 +6,7 @@ class ExpertInfo {
   String email;
   final String qualification;
   final String category;
-  int? fee;
+  int fee;
   String question1;
   String question2;
   String question3;
@@ -22,7 +22,7 @@ class ExpertInfo {
     required this.email,
     required this.qualification,
     required this.category,
-    this.fee,
+    this.fee = 0,
     required this.fromTime,
     required this.toTime,
     this.question1 = '',
@@ -59,14 +59,14 @@ class ExpertInfo {
       id: snapshot['ExpertID'],
       name: snapshot['Name'],
       email: snapshot['Email'],
-      qualification: snapshot['Qualification'],
-      category: snapshot['Category'],
-      sessionCount: snapshot['SessionCount'],
-      question1: snapshot['Question-1'],
-      question2: snapshot['Question-2'],
-      question3: snapshot['Question-3'],
-      imageUrl: snapshot['imageUrl'],
-      fee: snapshot['fee'],
+      qualification: snapshot['Qualification'] ?? 'Degree',
+      category: snapshot['Category'] ?? 'Clinical Psychologist',
+      sessionCount: snapshot['SessionCount'] ?? 0,
+      question1: snapshot['Question-1'] ?? '',
+      question2: snapshot['Question-2'] ?? '',
+      question3: snapshot['Question-3'] ?? '',
+      imageUrl: snapshot['imageUrl'] ?? '',
+      fee: snapshot['fee'] ?? 0,
       about: snapshot['about'],
       fromTime: (snapshot['fromTime'] as Timestamp).toDate(),
       toTime: (snapshot['toTime'] as Timestamp).toDate(),

@@ -1,6 +1,7 @@
 import 'package:expert_app/services/auth.dart';
 import 'package:expert_app/shared/constants/constants.dart';
 import 'package:expert_app/shared/loading/loading.dart';
+import 'package:expert_app/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -25,7 +26,6 @@ class _SignInState extends State<SignIn> {
     return loading
         ? const Loading()
         : Scaffold(
-            backgroundColor: const Color.fromARGB(255, 20, 35, 28),
             appBar: AppBar(
               backgroundColor: const Color.fromARGB(255, 20, 35, 28),
               elevation: 0.0,
@@ -40,20 +40,20 @@ class _SignInState extends State<SignIn> {
             ),
             body: SafeArea(
               child: SingleChildScrollView(
-                child: Center(
+                child: Container(
+                  decoration: const BoxDecoration(gradient: gradientColor),
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         kHeight30,
 
                         kHeight30,
 
                         // welcome back, you've been missed!
-                        Text('Welcome! ', style: commonTextStyle),
-                        kHeight10,
-                        Text(
+                        const Text('Welcome! ', style: commonTextStyle),
+                        kHeight30,
+                        const Text(
                           'Sign In to provide your valuable service',
                           style: commonTextStyle,
                         ),
@@ -67,9 +67,8 @@ class _SignInState extends State<SignIn> {
                                 child: Column(
                                   children: <Widget>[
                                     // username textfield
-                                    TextFormField(
-                                      decoration: textInputDecoration.copyWith(
-                                          hintText: 'Email or Username'),
+                                    TextFormFieldWidget(
+                                      hintText: 'Email',
                                       validator: (val) => val!.isEmpty
                                           ? 'Enter an email'
                                           : null,
@@ -80,12 +79,11 @@ class _SignInState extends State<SignIn> {
                                       },
                                     ),
 
-                                    const SizedBox(height: 10),
+                                    kHeight20,
 
                                     // password textfield
-                                    TextFormField(
-                                      decoration: textInputDecoration.copyWith(
-                                          hintText: 'Password'),
+                                    TextFormFieldWidget(
+                                      hintText: 'Password',
                                       validator: (value) => value!.length < 6
                                           ? 'Password must be at least 6 characters long'
                                           : null,
@@ -116,7 +114,7 @@ class _SignInState extends State<SignIn> {
                                       ),
                                     ),
 
-                                    const SizedBox(height: 20),
+                                    kHeight30,
 
                                     // sign in button
                                     SizedBox(
@@ -144,6 +142,7 @@ class _SignInState extends State<SignIn> {
                                           },
                                           child: const Text('Sign In')),
                                     ),
+                                    kHeight20,
 
                                     Text(
                                       error,
@@ -177,7 +176,7 @@ class _SignInState extends State<SignIn> {
                         kHeight20,
 
                         const SizedBox(
-                          height: 50,
+                          height: 60,
                         ),
                         // Don't have an account?
                         Padding(
@@ -207,7 +206,7 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
 
-                        //  kHeight20,
+                        kHeight10,
 
                         TextButton(
                             onPressed: () {

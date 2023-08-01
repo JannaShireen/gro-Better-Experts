@@ -34,8 +34,13 @@ class ViewAllBookings extends StatelessWidget {
                 // If data is available, build the list
                 final bookings = snapshot.data?.docs;
                 if (bookings == null || bookings.isEmpty) {
-                  return const Text(
-                      "No bookings available"); // If there are no bookings, display a message
+                  return const Center(
+                    child: Text(
+                      "No bookings available",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
+                    ),
+                  ); // If there are no bookings, display a message
                 }
 
                 return ListView.separated(

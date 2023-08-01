@@ -23,6 +23,7 @@ class EditProfile extends StatelessWidget {
                 title: const Text('Edit Profile'),
                 automaticallyImplyLeading: true,
                 backgroundColor: kBackgroundColor,
+                elevation: 0,
               ),
               body: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
                   stream: FirebaseFirestore.instance

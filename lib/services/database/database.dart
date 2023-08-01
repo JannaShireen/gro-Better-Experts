@@ -59,7 +59,7 @@ class DatabaseService {
 
   Future<ExpertInfo> getUserDetails() async {
     User currentUser = _auth.currentUser!;
-    print(" printing current user id  $currentUser");
+    //print(" printing current user id  $currentUser");
     DocumentSnapshot snap = await _firebaseFirestore
         .collection('Experts')
         .doc(currentUser.uid)
